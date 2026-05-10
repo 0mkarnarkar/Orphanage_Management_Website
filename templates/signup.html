@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Bright Futures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .signup-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .signup-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .signup-header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .signup-header p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .signup-form {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+            outline: none;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            color: #777;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .signup-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+        }
+        
+        .signup-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .signup-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Error message */
+        .error-message {
+            color: var(--danger-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 576px) {
+            .signup-form {
+                padding: 30px 20px;
+            }
+            
+            .signup-header {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Your Account</h1>
+            <p>Join Bright Futures to make a difference</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            Please fill all fields correctly.
+        </div>
+        
+        <form class="signup-form" id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age</label>
+                <i class="fas fa-calendar-alt input-icon"></i>
+                <input type="number" id="age" class="form-control" placeholder="Enter your age" min="18" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <i class="fas fa-phone input-icon"></i>
+                <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </button>
+        </form>
+        
+        <div class="signup-footer">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const submitBtn = this.querySelector('button[type="submit"]');
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                errorMessage.textContent = "Passwords do not match!";
+                errorMessage.style.display = 'block';
+                
+                // Shake animation for error
+                document.querySelector('.signup-container').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.signup-container').style.animation = '';
+                }, 500);
+                return;
+            }
+            
+            // Validate age
+            if (parseInt(age) < 18) {
+                errorMessage.textContent = "You must be at least 18 years old to sign up";
+                errorMessage.style.display = 'block';
+                
+                // Shake animation for error
+                document.querySelector('.signup-container').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.signup-container').style.animation = '';
+                }, 500);
+                return;
+            }
+            
+            // Show loading state
+            errorMessage.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            
+            // Submit the form to Flask backend
+            fetch("/signup", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    age: age,
+                    phone: phone,
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url; // Redirect to success page
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data && data.error) {
+                    errorMessage.textContent = data.error;
+                    errorMessage.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Sign Up';
+                    
+                    // Shake animation for error
+                    document.querySelector('.signup-container').style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        document.querySelector('.signup-container').style.animation = '';
+                    }, 500);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Sign Up';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Bright Futures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .login-header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+            outline: none;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            color: #777;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember-me input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+        }
+        
+        .login-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+        
+        /* Error message */
+        .error-message {
+            color: var(--danger-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 576px) {
+            .login-form {
+                padding: 30px 20px;
+            }
+            
+            .login-header {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Admin Dashboard</h1>
+            <p>Access the management portal for Bright Futures</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            Invalid username or password. Please try again.
+        </div>
+        
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="remember-forgot">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+        
+        <div class="login-footer">
+            <p>Return to <a href="{{ url_for('index') }}">main website</a></p>
+        </div>
+    </div>
+
+    <script>
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('errorMessage');
+    const submitBtn = this.querySelector('button[type="submit"]');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+    
+    // Submit the form to Flask backend
+    fetch("/login", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'username': username,
+            'password': password,
+            'remember': document.getElementById('remember').checked ? 'on' : ''
+        })
+    })
+    .then(response => {
+        if (response.redirected) {
+            window.location.href = response.url; // Redirect to dashboard
+        } else {
+            return response.text();
+        }
+    })
+    .then(text => {
+        if (text) {
+            errorMessage.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            
+            // Shake animation for error
+            document.querySelector('.login-container').style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                document.querySelector('.login-container').style.animation = '';
+            }, 500);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+    });
+});
+        
+        // Check if remember me was checked in previous session
+        if (localStorage.getItem('rememberAdmin') === 'true') {
+            document.getElementById('remember').checked = true;
+            document.getElementById('username').value = localStorage.getItem('adminUsername') || '';
+        }
+        
+        // Handle remember me checkbox
+        document.getElementById('remember').addEventListener('change', function() {
+            if (this.checked) {
+                localStorage.setItem('rememberAdmin', 'true');
+            } else {
+                localStorage.removeItem('rememberAdmin');
+                localStorage.removeItem('adminUsername');
+            }
+        });
+        
+        // Store username if remember me is checked
+        document.getElementById('username').addEventListener('input', function() {
+            if (document.getElementById('remember').checked) {
+                localStorage.setItem('adminUsername', this.value);
+            }
+        });
+        
+        // Add shake animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+    fetch('/logout', {
+        method: 'POST'
+    }).then(() => {
+        window.location.href = '/';
+    });
+});
+    </script>
+</body>
+</html>
